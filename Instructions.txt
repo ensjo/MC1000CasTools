@@ -1,0 +1,86 @@
+Para informações sobre o formato do arquivo de áudio do MC-1000, acesse:
+
+  http://mc-1000.wikispaces.com/Cassete
+
+
+
+*************
+** Bas2Bin **
+*************
+
+Modo de uso:
+
+  java Bas2Bin arquivo.bas
+
+O arquivo .bas deve conter o código-fonte, em texto puro, de um programa em
+BASIC do MC-1000. Pode ter sido digitado no Bloco de Notas (Notepad) do Windows,
+por exemplo.
+
+A partir do arquivo .bas, gera um arquivo .bin de mesmo nome contendo a
+sequência de bytes que se armazenará na fita: "nome do arquivo", "endereço de
+início", "endereço de fim", "bloco de dados".
+
+O "nome do arquivo" gerado é sempre "vazio", isto é, cinco espaços. Isto
+permitirá posteriormente carregar o programa no MC-1000 sem precisar especificar
+nome algum no comando LOAD.
+
+
+
+*************
+** Bin2Wav **
+*************
+
+Modo de uso:
+
+  java Bin2Wav arquivo.bin
+
+A partir do arquivo .bin gerado acima, gera um arquivo .wav contendo sua
+representação sonora, precedido pelo "cabeçalho de sincronismo" ("tom piloto").
+
+
+
+*************
+** Wav2Bin **
+*************
+
+Modo de uso:
+
+  java Wav2Bin arquivo.wav
+
+É o inverso do Bin2Wav: A partir de um arquivo .wav com um arquivo salvo pelo
+MC-1000 em formato sonoro, gera um arquivo .bin com os bytes lidos: "nome do
+arquivo", "endereço de início", endereço de fim", "bloco de dados".
+
+Mostra na tela a onda contida no arquivo .wav e o passo-a-passo da análise do
+arquivo. Para salvar esta informação, redirecione a impressão da tela para um
+arquivo:
+
+  java Bin2Wav arquivo1.wav > arquivo2.txt
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+AVISO: Dependendo do arquivo .wav, este utilitário pode levar muitas horas para
+processa-lo. Arquivos .wav com mais de 10MB podem facilmente levar mais de 12
+horas de processamento.
+
+
+
+*************
+** ListBin **
+*************
+
+Modo de uso:
+
+  java ListBin arquivo.bin
+
+A partir do um arquivo .bin gerado por Bas2Bin ou por Wav2Bin a partir de um
+.wav contendo um programa em BASIC, mostra na tela o "nome do arquivo", o
+"endereço de início", o "endereço seguinte ao fim", e a listagem do código-fonte
+do programa BASIC contido no "bloco de dados".
+
+Diferente dos programas anteriores, este programa NÃO gera outro arquivo. Para
+salvar a informação mostrada (o que inclui o código-fonte do programa BASIC),
+redirecione a impressão da tela para um arquivo:
+
+  java ListBin arquivo1.bin > arquivo2.bas
+
+Depois edite o arquivo e remova 3 primeiras linhas.
