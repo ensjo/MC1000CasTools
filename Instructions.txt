@@ -57,7 +57,6 @@ arquivo:
 
   java Bin2Wav arquivo1.wav > arquivo2.txt
 
-----+----|----+----|----+----|----+----|----+----|----+----|----+----|----+----|
 AVISO: Dependendo do arquivo .wav, este utilitário pode levar muitas horas para
 processa-lo. Arquivos .wav com mais de 10MB podem facilmente levar mais de 12
 horas de processamento.
