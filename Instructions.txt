@@ -1,85 +1,45 @@
-Para informações sobre o formato do arquivo de áudio do MC-1000, acesse:
+Uso:
 
-  http://mc-1000.wikispaces.com/Cassete
+   java MC1000CasTools <opções> <arq_origem> -<formato>
+   java MC1000CasTools <opções> <arq_origem> -list
+   java MC1000CasTools <opções> <arq_origem> <arq_destino>
 
+Converte arquivos entre formatos diferentes:
 
+   *.bas : Arquivo contendo código-fonte de programa BASIC do MC-1000.
+   *.bin : Arquivo contendo dados brutos de um bloco de memória (no caso de um
+        programa BASIC, é o programa em formato tokenizado).
+   *.cas : Arquivo contendo dados tal como gerados/lidos pelos comandos SAVE,
+        LOAD e TLOAD do MC-1000: cabeçalho (nome de arquivo em cassete,
+        endereço de início, endereço de fim) + dados brutos.
+   *.wav : Som produzido pelo MC-1000 correspondente aos dados de cassete.
 
-*************
-** Bas2Bin **
-*************
+Opções:
 
-Modo de uso:
+   -b : Na conversão de BIN para CAS ou WAV, indica que o conteúdo do arquivo
+        é um programa BASIC, para que o nome de arquivo em cassete seja
+        adequadamente formatado (até 5 caracteres, completados com espaços).
+   -n <nome> : Na conversão de BAS ou BIN para CAS ou WAV, especifica o nome de
+        arquivo em cassete (até 14 caracteres). O valor predefinido é vazio.
+   -i <número> : Se um arquivo WAV contém mais de um arquivo de cassete, indica
+        qual deles converter. O valor predefinido é 1.
+   -v : Modo verboso. Exibe diversas informações sobre o processo de conversão.
 
-  java Bas2Bin arquivo.bas
+Outros parâmetros:
 
-O arquivo .bas deve conter o código-fonte, em texto puro, de um programa em
-BASIC do MC-1000. Pode ter sido digitado no Bloco de Notas (Notepad) do Windows,
-por exemplo.
+   <arq_origem> : O arquivo a ser convertido. O formato será reconhecido pela
+        extensão.
+   -<formato> : O formato final da conversão: -bas, -bin, -cas ou -wav.
+        Se esta opção for usada, o nome do arquivo de destino será o mesmo do
+        arquivo de origem com a extensão devidamente modificada.
+   -list : Converte para formato BASIC e exibe na tela, sem gerar arquivo.
+   <arq_destino> : Se não for especificado um formato de conversão, deve-se
+        fornecer o nome do arquivo de destino. O formato da conversão será
+        detectado pela extensão.
 
-A partir do arquivo .bas, gera um arquivo .bin de mesmo nome contendo a
-sequência de bytes que se armazenará na fita: "nome do arquivo", "endereço de
-início", "endereço de fim", "bloco de dados".
+Nota: Esta ferramenta extrai apenas o primeiro arquivo de cassete contido em um
+arquivo WAV. Se houver mais arquivos de cassete, o usuário deverá dividir o
+arquivo WAV em arquivos menores por conta própria.
 
-O "nome do arquivo" gerado é sempre "vazio", isto é, cinco espaços. Isto
-permitirá posteriormente carregar o programa no MC-1000 sem precisar especificar
-nome algum no comando LOAD.
-
-
-
-*************
-** Bin2Wav **
-*************
-
-Modo de uso:
-
-  java Bin2Wav arquivo.bin
-
-A partir do arquivo .bin gerado acima, gera um arquivo .wav contendo sua
-representação sonora, precedido pelo "cabeçalho de sincronismo" ("tom piloto").
-
-
-
-*************
-** Wav2Bin **
-*************
-
-Modo de uso:
-
-  java Wav2Bin arquivo.wav
-
-É o inverso do Bin2Wav: A partir de um arquivo .wav com um arquivo salvo pelo
-MC-1000 em formato sonoro, gera um arquivo .bin com os bytes lidos: "nome do
-arquivo", "endereço de início", endereço de fim", "bloco de dados".
-
-Mostra na tela a onda contida no arquivo .wav e o passo-a-passo da análise do
-arquivo. Para salvar esta informação, redirecione a impressão da tela para um
-arquivo:
-
-  java Bin2Wav arquivo1.wav > arquivo2.txt
-
-AVISO: Dependendo do arquivo .wav, este utilitário pode levar muitas horas para
-processa-lo. Arquivos .wav com mais de 10MB podem facilmente levar mais de 12
-horas de processamento.
-
-
-
-*************
-** ListBin **
-*************
-
-Modo de uso:
-
-  java ListBin arquivo.bin
-
-A partir do um arquivo .bin gerado por Bas2Bin ou por Wav2Bin a partir de um
-.wav contendo um programa em BASIC, mostra na tela o "nome do arquivo", o
-"endereço de início", o "endereço seguinte ao fim", e a listagem do código-fonte
-do programa BASIC contido no "bloco de dados".
-
-Diferente dos programas anteriores, este programa NÃO gera outro arquivo. Para
-salvar a informação mostrada (o que inclui o código-fonte do programa BASIC),
-redirecione a impressão da tela para um arquivo:
-
-  java ListBin arquivo1.bin > arquivo2.bas
-
-Depois edite o arquivo e remova 3 primeiras linhas.
+Para maiores informações visite:
+https://sites.google.com/site/ccemc1000/sistema/cassete
