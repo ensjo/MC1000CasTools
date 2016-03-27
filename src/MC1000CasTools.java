@@ -1,4 +1,4 @@
-package net.ensjo.mc1000.tools.cassette;
+
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileInputStream;
+import java.io.BufferedInputStream;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -221,7 +222,7 @@ public class MC1000CasTools {
 			if (formatoDestino == FORMATO_WAV) entrada = new Cas2Wav(entrada);
 		} else {
 			// Conversão no sentido WAV->CAS->BIN->WAV.
-			if (formatoOrigem == FORMATO_WAV) entrada = new Wav2Cas(entrada);
+			if (formatoOrigem == FORMATO_WAV) entrada = new Wav2Cas(new BufferedInputStream(entrada));
 			if (formatoOrigem >= FORMATO_CAS && formatoDestino <= FORMATO_BIN) entrada = new Cas2Bin(entrada);
 			if (formatoDestino == FORMATO_BAS) entrada = new Bin2Bas(entrada);
 		}
