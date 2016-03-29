@@ -522,9 +522,9 @@ public class MC1000CasTools {
 				cabecalho.append(nomeDeArquivoEmCassete);
 				// 2. Endereço inicial do bloco de dados (0x0000):
 				cabecalho.append("\0\0");
-				// 3. Endereço final do bloco de dados (= tamanho do bloco - 1):
-				cabecalho.append((char) ( (dados.length() - 1)       & 0xff)); // LSB.
-				cabecalho.append((char) (((dados.length() - 1) >> 8) & 0xff)); // MSB.
+				// 3. Endereço final do bloco de dados (= tamanho do bloco):
+				cabecalho.append((char) ( dados.length()       & 0xff)); // LSB.
+				cabecalho.append((char) ((dados.length() >> 8) & 0xff)); // MSB.
 				
 				return read();
 			} else if (cabecalho.length() != 0) {
