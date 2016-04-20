@@ -212,7 +212,7 @@ public class MC1000CasTools {
 		if (modoVerboso) if (!usarStdout) System.out.printf("Arquivo de destino: [%s].\n", nomeDoArquivoDestino);
 		
 		// Conecta os componentes da conversão.
-		InputStream entrada = new FileInputStream(arquivoOrigem);
+		InputStream entrada = new BufferedInputStream(new FileInputStream(arquivoOrigem));
 		if (formatoOrigem < formatoDestino) {
 			// Conversão no sentido BAS->BIN->CAS->WAV.
 			if (formatoOrigem == FORMATO_BAS) entrada = new Bas2Bin(entrada);
