@@ -37,9 +37,5 @@ Outros parâmetros:
         fornecer o nome do arquivo de destino. O formato da conversão será
         detectado pela extensão.
 
-Nota: Esta ferramenta extrai apenas o primeiro arquivo de cassete contido em um
-arquivo WAV. Se houver mais arquivos de cassete, o usuário deverá dividir o
-arquivo WAV em arquivos menores por conta própria.
-
 Para maiores informações visite:
 https://sites.google.com/site/ccemc1000/sistema/cassete
