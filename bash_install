@@ -1,0 +1,20 @@
+#!/bin/bash
+
+DESTINATION=${HOME}/bin
+
+if [[ ! -d ${DESTINATION} ]]; then
+    mkdir ${DESTINATION}
+fi
+
+mkdir -p ${DESTINATION}/classes
+
+cp mc1000castools ${DESTINATION}
+chmod +x mc1000castools
+
+cp bin/*.class ${DESTINATION}/classes/.
+
+for LINK in $( ls src/*.java | cut -d. -f1 | tr '[A-Z]' '[a-z]' ); do
+    ln -s ${DESTINATION}/mc1000castools ${DESTINATION}/$( basename ${LINK} )
+done
+
+exit 0
