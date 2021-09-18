@@ -243,11 +243,10 @@ public class MC1000CasTools {
 		private static final int ESTRATEGIA_TOKEN = 0;
 		private static final int ESTRATEGIA_DATA = 1;
 		private static final int ESTRATEGIA_DATA2 = 2;
-		private static final int ESTRATEGIA_DATA3 = 3;
-		private static final int ESTRATEGIA_REM = 4;
-		private static final int ESTRATEGIA_STRING_OU_CARACTER = 5;
-		private static final int ESTRATEGIA_STRING = 6;
-		private static final int ESTRATEGIA_CARACTER = 7;
+		private static final int ESTRATEGIA_REM = 3;
+		private static final int ESTRATEGIA_STRING_OU_CARACTER = 4;
+		private static final int ESTRATEGIA_STRING = 5;
+		private static final int ESTRATEGIA_CARACTER = 6;
 		
 		private static final Pattern pLinhaComNumero = Pattern.compile("^\\s*(\\d+)\\s*(.*)");
 		
@@ -378,53 +377,31 @@ public class MC1000CasTools {
 					}
 				}
 				break;
-			case ESTRATEGIA_DATA: // Trata o início de uma instrução DATA: Descarta primeiro espaço, se houver.
+			case ESTRATEGIA_DATA: // Trata o início de uma instrução DATA: Descarta espaços iniciais não escapados, se houver.
 				switch (caracter) {
 				case ' ':
-					// Descarta primeiro espaço após a palavra "DATA".
-					estrategia = ESTRATEGIA_DATA2;
+					// Descarta espaços iniciais não escapados após a palavra "DATA".
 					break;
 				default:
+					// Espaços escapados ou quaisquer outros caracteres marcam o início dos dados reais.
 					estrategia = ESTRATEGIA_DATA2;
 					exec(ESTRATEGIA_DATA2);
 					break;
 				}
 				break;
-			case ESTRATEGIA_DATA2: // Trata caracteres entre dados em uma instrução DATA: espaços, vírgulas...
-				exec(ESTRATEGIA_CARACTER);
-				switch (caracter) {
-				case ' ':
-				case ',':
-					// Espaço ou vírgula não mudam a estratégia.
-					break;
-				case ':':
-					// Fim da instrução DATA.
-					estrategia = ESTRATEGIA_TOKEN;
-					break;
-				default:
-					// Encontrou algum dado.
-					estrategia = ESTRATEGIA_DATA3;
-					break;
-				}
-				break;
-			case ESTRATEGIA_DATA3: // Trata dado em instrução DATA.
+			case ESTRATEGIA_DATA2: // Trata caracteres entre dados em uma instrução DATA: espaços não escapados após o primeiro caracter diferente de espaço saem não escapados.
 				exec(ESTRATEGIA_STRING_OU_CARACTER);
 				switch (caracter) {
-				case ',':
-					// Volta a tratar caracteres entre dados.
-					estrategia = ESTRATEGIA_DATA2;
-					break;
 				case ':':
 					// Fim da instrução DATA.
 					estrategia = ESTRATEGIA_TOKEN;
 					break;
 				}
 				break;
-			case ESTRATEGIA_REM: // Trata o início de uma instrução REM/SAVE/LOAD: Descarta primeiro espaço, se houver. 
+			case ESTRATEGIA_REM: // Trata o início de uma instrução REM/SAVE/LOAD: Descarta espaços iniciais não escapados, se houver. 
 				switch (caracter) {
 				case ' ':
-					// Descarta primeiro espaço após a palavra "REM".
-					estrategia = ESTRATEGIA_CARACTER;
+					// Descarta espaços iniciais não escapados após a palavra "REM".
 					break;
 				default:
 					estrategia = ESTRATEGIA_CARACTER;
@@ -662,18 +639,18 @@ public class MC1000CasTools {
 		
 		private void amostrasBaixas() {
 			// 4 amostras a 11025 amostras por segundo.
-			listaDeAmostras.add(new Byte((byte) -128));
-			listaDeAmostras.add(new Byte((byte) -128));
-			listaDeAmostras.add(new Byte((byte) -128));
-			listaDeAmostras.add(new Byte((byte) -128));
+			listaDeAmostras.add(Byte.valueOf((byte) -128));
+			listaDeAmostras.add(Byte.valueOf((byte) -128));
+			listaDeAmostras.add(Byte.valueOf((byte) -128));
+			listaDeAmostras.add(Byte.valueOf((byte) -128));
 		}
 		
 		private void amostrasAltas() {
 			// 4 amostras a 11025 amostras por segundo.
-			listaDeAmostras.add(new Byte((byte) +127));
-			listaDeAmostras.add(new Byte((byte) +127));
-			listaDeAmostras.add(new Byte((byte) +127));
-			listaDeAmostras.add(new Byte((byte) +127));
+			listaDeAmostras.add(Byte.valueOf((byte) +127));
+			listaDeAmostras.add(Byte.valueOf((byte) +127));
+			listaDeAmostras.add(Byte.valueOf((byte) +127));
+			listaDeAmostras.add(Byte.valueOf((byte) +127));
 		}
 	}
 
@@ -1175,9 +1152,10 @@ public class MC1000CasTools {
 		private static final int ESTRATEGIA_TOKEN = 0;
 		private static final int ESTRATEGIA_DATA = 1;
 		private static final int ESTRATEGIA_DATA2 = 2;
-		private static final int ESTRATEGIA_STRING_OU_CARACTER = 3;
-		private static final int ESTRATEGIA_STRING = 4;
-		private static final int ESTRATEGIA_CARACTER = 5;
+		private static final int ESTRATEGIA_REM = 3;
+		private static final int ESTRATEGIA_STRING_OU_CARACTER = 4;
+		private static final int ESTRATEGIA_STRING = 5;
+		private static final int ESTRATEGIA_CARACTER = 6;
 		
 		private char caracter;
 		private int estrategia;
@@ -1259,7 +1237,7 @@ public class MC1000CasTools {
 					if (palavraReservada.equals("DATA")) {
 						estrategia = ESTRATEGIA_DATA;
 					} else if (palavraReservada.equals("REM") || palavraReservada.equals("SAVE") || palavraReservada.equals("LOAD")) {
-						estrategia = ESTRATEGIA_CARACTER;
+						estrategia = ESTRATEGIA_REM;
 					}
 				} else {
 					switch (caracter) {
@@ -1273,33 +1251,38 @@ public class MC1000CasTools {
 					}
 				}
 				break;
-			case ESTRATEGIA_DATA: // Trata caracteres entre dados em uma instrução DATA: espaços, vírgulas...
-				exec(ESTRATEGIA_STRING_OU_CARACTER);
+			case ESTRATEGIA_DATA: // Trata início de instrução DATA: espaços iniciais.
 				switch (caracter) {
 				case ' ':
-				case ',':
-					// Espaço ou vírgula não mudam a estratégia.
-					break;
-				case ':':
-					// Fim da instrução DATA.
-					estrategia = ESTRATEGIA_TOKEN;
+					// Espaço: Exibe notação decimal para marcar início dos dados reais.
+					linhaBas.append("~20");
+					estrategia = ESTRATEGIA_DATA2;
 					break;
 				default:
-					// Encontrou algum dado.
 					estrategia = ESTRATEGIA_DATA2;
+					exec(ESTRATEGIA_DATA2);
 					break;
 				}
 				break;
 			case ESTRATEGIA_DATA2: // Trata dado em instrução DATA.
 				exec(ESTRATEGIA_STRING_OU_CARACTER);
 				switch (caracter) {
-				case ',':
-					// Volta a tratar caracteres entre dados.
-					estrategia = ESTRATEGIA_DATA;
-					break;
 				case ':':
 					// Fim de instrução DATA.
 					estrategia = ESTRATEGIA_TOKEN;
+					break;
+				}
+				break;
+			case ESTRATEGIA_REM: // Trata início de instrução REM/SAVE/LOAD: espaços iniciais.
+				switch(caracter) {
+				case ' ':
+					// Espaço: Exibe notação decimal para marcar início dos dados reais.
+					linhaBas.append("~20");
+					estrategia = ESTRATEGIA_CARACTER; // Sai o resto da linha. Espaços após qualquer primeiro caracter saem não escapados.
+					break;
+				default:
+					estrategia = ESTRATEGIA_CARACTER; // Sai o resto da linha. Espaços após qualquer primeiro caracter saem não escapados.
+					exec(ESTRATEGIA_CARACTER);
 					break;
 				}
 				break;
