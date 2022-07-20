@@ -37,5 +37,16 @@ Outros parâmetros:
         fornecer o nome do arquivo de destino. O formato da conversão será
         detectado pela extensão.
 
+
+==========================
+2022-07-20: VERSÃO PYTHON!
+==========================
+
+Uma versão em linguagem Python 3 foi disponibilizada na pasta "/py" do projeto.
+
+A sintaxe de comandos e opções é a mesma. Naturalmente, sem a palavra "java" no
+início.
+
+
 Para maiores informações visite:
 https://sites.google.com/site/ccemc1000/sistema/cassete
