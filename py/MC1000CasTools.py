@@ -359,7 +359,7 @@ class Bas2Bin(MyIOBase):
                     # Tokeniza.
                     self.linha_bin.append(token)
                     # Pula as letras da palavra reservada.
-                    del self.linha_bas[:len(palavra_reservada)]
+                    del self.linha_bas[:len(palavra_reservada) - 1]
                     # Certas palavras reservadas implicam mudança de estratégia.
                     if palavra_reservada == b"DATA":
                         self.estrategia = self.ESTRATEGIA_DATA
