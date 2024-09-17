@@ -1,0 +1,30 @@
+#!/bin/bash 
+
+CASSTOOLS_CLASSES="${HOME}/bin/classes"
+PROG=$( basename ${0} )
+FILE=${1}
+JAVA=$( which java )
+
+if [[ ! -z ${JAVA} ]] ; then
+    case ${PROG} in
+        bas2bin)
+            BIN='Bas2Bin'
+            ;;
+        bin2wav)
+            BIN='Bin2Wav'
+            ;;
+        listbin)
+            BIN='ListBin'
+            ;;
+        wav2bin)
+            BIN='Wav2Bin'
+            ;;
+        *)
+            echo $PROG
+            exit 2
+    esac
+    ${JAVA} -Xbootclasspath/a:${CASSTOOLS_CLASSES} ${BIN} ${FILENAME}
+else
+    exit 1
+fi
+
