@@ -62,6 +62,7 @@ def main():
                 nome_de_arquivo_em_cassete = bytes(sys.argv[num_arg], "utf-8")
                 num_arg += 1
         elif opcao == "-i":
+            num_arg += 1
             if num_arg < len(sys.argv):
                 try:
                     indice_de_arquivo_em_cassete_a_extrair = int(sys.argv[num_arg])
@@ -151,7 +152,7 @@ def main():
                     sys.exit(1)
                 sintaxe_incorreta = False
         else:
-            print(">>>! Extensão do arquivo de origem não reconhecida, deve ser BAS/TXT/BIN/CAS/WAV.", file=sys.stderr)
+            print(">>>! Extensão do arquivo de origem não reconhecida, deve ser BAS/BIN/CAS/WAV.", file=sys.stderr)
             sys.exit(1)
     if sintaxe_incorreta:
         print("""Uso:
