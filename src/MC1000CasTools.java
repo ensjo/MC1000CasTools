@@ -48,7 +48,7 @@ public class MC1000CasTools {
 	private static boolean indiceDeArquivoEmCasseteAExtrairInformado = false;
 	private static boolean modoVerboso = false;
 
-	// M…TODO MAIN.
+	// M√âTODO MAIN.
 	
 	public static void main(String[] args)  throws FileNotFoundException, IOException {
 		int numarg = 0;
@@ -63,7 +63,7 @@ public class MC1000CasTools {
 		boolean usarStdout = false;
 		boolean sintaxeIncorreta = true;
 		
-		// Trata opÁıes de linha de comando.
+		// Trata op√ß√µes de linha de comando.
 		while (numarg < args.length) {
 			if ((opcao = args[numarg]).equalsIgnoreCase("-b")) {
 				eProgramaBASIC = true;
@@ -78,7 +78,7 @@ public class MC1000CasTools {
 						indiceDeArquivoEmCasseteAExtrair = Integer.parseInt(args[numarg++]);
 						indiceDeArquivoEmCasseteAExtrairInformado = true;
 					} catch (NumberFormatException e) {
-						System.err.println("Par‚metro inv·lido para a opÁ„o -i. Deve ser um n˙mero inteiro.");
+						System.err.println("Par√¢metro inv√°lido para a op√ß√£o -i. Deve ser um n√∫mero inteiro.");
 					}
 				}
 			} else if (opcao.equalsIgnoreCase("-v")) {
@@ -93,7 +93,7 @@ public class MC1000CasTools {
 			if (modoVerboso) System.out.printf("Arquivo de origem: [%s].\n", nomeDoArquivoOrigem);
 			arquivoOrigem = new File(nomeDoArquivoOrigem);
 			if (!arquivoOrigem.exists()) {
-				System.err.println(">>>! Arquivo n„o existe.");
+				System.err.println(">>>! Arquivo n√£o existe.");
 				System.exit(0);
 			}
 			if (arquivoOrigem.length() == 0) {
@@ -127,7 +127,7 @@ public class MC1000CasTools {
 						usarStdout = true;
 					}
 					if (formatoDestino != FORMATO_INDEFINIDO) {
-						// Foi informada uma opÁ„o de formato de destino.
+						// Foi informada uma op√ß√£o de formato de destino.
 						// Calcular nome do arquivo de destino a partir do nome do arquivo de origem.
 						nomeDoArquivoDestino = m.group(1) +
 							(formatoDestino != FORMATO_BAS && m.group(2) != null ? m.group(2) : "") +
@@ -138,7 +138,7 @@ public class MC1000CasTools {
 							 formatoDestino == FORMATO_BIN ? "bin" :
 							 formatoDestino == FORMATO_CAS ? "cas" : "wav");
 					} else {
-						// N„o foi informada uma opÁ„o de formato de destino.
+						// N√£o foi informada uma op√ß√£o de formato de destino.
 						// Obter o nome do arquivo de destino da linha de comando.
 						nomeDoArquivoDestino = args[numarg];
 						m = p.matcher(nomeDoArquivoDestino);
@@ -153,7 +153,7 @@ public class MC1000CasTools {
 								formatoDestino = FORMATO_WAV;
 							}
 						} else {
-							System.err.println(">>>! Extens„o do arquivo de destino n„o reconhecida, deve ser BAS/BIN/CAS/WAV.");
+							System.err.println(">>>! Extens√£o do arquivo de destino n√£o reconhecida, deve ser BAS/BIN/CAS/WAV.");
 							System.exit(1);
 						}
 					}
@@ -164,69 +164,69 @@ public class MC1000CasTools {
 					sintaxeIncorreta = false;
 				}
 			} else {
-				System.err.println(">>>! Extens„o do arquivo de origem n„o reconhecida, deve ser BAS/TXT/BIN/CAS/WAV.");
+				System.err.println(">>>! Extens√£o do arquivo de origem n√£o reconhecida, deve ser BAS/TXT/BIN/CAS/WAV.");
 				System.exit(1);
 			}
 		}
 		if (sintaxeIncorreta) {
 			System.err.println(
 				"Uso:\n\n" +
-				"   java MC1000CasTools <opÁıes> <arq_origem> -<formato>\n" +
-				"   java MC1000CasTools <opÁıes> <arq_origem> -list\n" +
-				"   java MC1000CasTools <opÁıes> <arq_origem> <arq_destino>\n\n" +
+				"   java MC1000CasTools <op√ß√µes> <arq_origem> -<formato>\n" +
+				"   java MC1000CasTools <op√ß√µes> <arq_origem> -list\n" +
+				"   java MC1000CasTools <op√ß√µes> <arq_origem> <arq_destino>\n\n" +
 				"Converte arquivos entre formatos diferentes:\n\n" +
-				"   *.bas : Arquivo contendo cÛdigo-fonte de programa BASIC do MC-1000.\n" +
-				"   *.bin : Arquivo contendo dados brutos de um bloco de memÛria (no caso de um\n" +
-				"        programa BASIC, È o programa em formato tokenizado).\n" +
+				"   *.bas : Arquivo contendo c√≥digo-fonte de programa BASIC do MC-1000.\n" +
+				"   *.bin : Arquivo contendo dados brutos de um bloco de mem√≥ria (no caso de um\n" +
+				"        programa BASIC, √© o programa em formato tokenizado).\n" +
 				"   *.cas : Arquivo contendo dados tal como gerados/lidos pelos comandos SAVE,\n" +
-				"        LOAD e TLOAD do MC-1000: cabeÁalho (nome de arquivo em cassete,\n" +
-				"        endereÁo de inÌcio, endereÁo de fim) + dados brutos.\n" +
+				"        LOAD e TLOAD do MC-1000: cabe√ßalho (nome de arquivo em cassete,\n" +
+				"        endere√ßo de in√≠cio, endere√ßo de fim) + dados brutos.\n" +
 				"   *.wav : Som produzido pelo MC-1000 correspondente aos dados de cassete.\n\n" +
-				"OpÁıes:\n\n" +
-				"   -b : Na convers„o de BIN para CAS ou WAV, indica que o conte˙do do arquivo\n" +
-				"        È um programa BASIC, para que o nome de arquivo em cassete seja\n" +
-				"        adequadamente formatado (atÈ 5 caracteres, completados com espaÁos).\n" +
-				"   -n <nome> : Na convers„o de BAS ou BIN para CAS ou WAV, especifica o nome de\n" +
-				"        arquivo em cassete (atÈ 14 caracteres). O valor predefinido È vazio.\n" +
-				"   -i <n˙mero> : Se um arquivo WAV contÈm mais de um arquivo de cassete, indica\n" +
-				"        qual deles converter. O valor predefinido È 1.\n" +
-				"   -v : Modo verboso. Exibe diversas informaÁıes sobre o processo de convers„o.\n\n" +
-				"Outros par‚metros:\n\n" +
-				"   <arq_origem> : O arquivo a ser convertido. O formato ser· reconhecido pela\n" +
-				"        extens„o.\n" +
-				"   -<formato> : O formato final da convers„o: -bas, -bin, -cas ou -wav.\n" +
-				"        Se esta opÁ„o for usada, o nome do arquivo de destino ser· o mesmo do\n" +
-				"        arquivo de origem com a extens„o devidamente modificada.\n" +
+				"Op√ß√µes:\n\n" +
+				"   -b : Na convers√£o de BIN para CAS ou WAV, indica que o conte√∫do do arquivo\n" +
+				"        √© um programa BASIC, para que o nome de arquivo em cassete seja\n" +
+				"        adequadamente formatado (at√© 5 caracteres, completados com espa√ßos).\n" +
+				"   -n <nome> : Na convers√£o de BAS ou BIN para CAS ou WAV, especifica o nome de\n" +
+				"        arquivo em cassete (at√© 14 caracteres). O valor predefinido √© vazio.\n" +
+				"   -i <n√∫mero> : Se um arquivo WAV cont√©m mais de um arquivo de cassete, indica\n" +
+				"        qual deles converter. O valor predefinido √© 1.\n" +
+				"   -v : Modo verboso. Exibe diversas informa√ß√µes sobre o processo de convers√£o.\n\n" +
+				"Outros par√¢metros:\n\n" +
+				"   <arq_origem> : O arquivo a ser convertido. O formato ser√° reconhecido pela\n" +
+				"        extens√£o.\n" +
+			// Converso no sentido WAV->CAS->BIN->BAS.
+				"        Se esta op√ß√£o for usada, o nome do arquivo de destino ser√° o mesmo do\n" +
+				"        arquivo de origem com a extens√£o devidamente modificada.\n" +
 				"   -list : Converte para formato BASIC e exibe na tela, sem gerar arquivo.\n" +
-				"   <arq_destino> : Se n„o for especificado um formato de convers„o, deve-se\n" +
-				"        fornecer o nome do arquivo de destino. O formato da convers„o ser·\n" +
-				"        detectado pela extens„o.\n\n" +
+				"   <arq_destino> : Se n√£o for especificado um formato de convers√£o, deve-se\n" +
+				"        fornecer o nome do arquivo de destino. O formato da convers√£o ser√°\n" +
+				"        detectado pela extens√£o.\n\n" +
 				"Nota: Esta ferramenta extrai apenas o primeiro arquivo de cassete contido em um\n" +
-				"arquivo WAV. Se houver mais arquivos de cassete, o usu·rio dever· dividir o\n" +
-				"arquivo WAV em arquivos menores por conta prÛpria.\n\n" +
-				"Para maiores informaÁıes visite:\n" +
+				"arquivo WAV. Se houver mais arquivos de cassete, o usu√°rio dever√° dividir o\n" +
+				"arquivo WAV em arquivos menores por conta pr√≥pria.\n\n" +
+				"Para maiores informa√ß√µes visite:\n" +
 				"https://sites.google.com/site/ccemc1000/sistema/cassete"
 			);
 			System.exit(1);
 		}
 		if (modoVerboso) if (!usarStdout) System.out.printf("Arquivo de destino: [%s].\n", nomeDoArquivoDestino);
 		
-		// Conecta os componentes da convers„o.
+		// Conecta os componentes da convers√£o.
 		InputStream entrada = new BufferedInputStream(new FileInputStream(arquivoOrigem));
 		if (formatoOrigem < formatoDestino) {
-			// Convers„o no sentido BAS->BIN->CAS->WAV.
+			// Convers√£o no sentido BAS->BIN->CAS->WAV.
 			if (formatoOrigem == FORMATO_BAS) entrada = new Bas2Bin(entrada);
 			if (formatoOrigem <= FORMATO_BIN && formatoDestino >= FORMATO_CAS) entrada = new Bin2Cas(entrada);
 			if (formatoDestino == FORMATO_WAV) entrada = new Cas2Wav(entrada);
 		} else {
-			// Convers„o no sentido WAV->CAS->BIN->WAV.
+			// Convers√£o no sentido WAV->CAS->BIN->WAV.
 			if (formatoOrigem == FORMATO_WAV) entrada = new Wav2Cas(new BufferedInputStream(entrada));
 			if (formatoOrigem >= FORMATO_CAS && formatoDestino <= FORMATO_BIN) entrada = new Cas2Bin(entrada);
 			if (formatoDestino == FORMATO_BAS) entrada = new Bin2Bas(entrada);
 		}
 		OutputStream saida = usarStdout ? System.out : new FileOutputStream(nomeDoArquivoDestino);
 		
-		// LÍ bytes para o arquivo de saÌda.
+		// L√™ bytes para o arquivo de sa√≠da.
 		int _byte;
 		while((_byte = entrada.read()) != -1) {
 			saida.write(_byte);
@@ -237,7 +237,7 @@ public class MC1000CasTools {
 		saida.close();
 	}
 
-	// CONVERS√O BASIC --> BIN¡RIO.
+	// CONVERS√ÉO BASIC --> BIN√ÅRIO.
 
 	private static class Bas2Bin extends InputStream {
 		private static final int ESTRATEGIA_TOKEN = 0;
@@ -264,42 +264,42 @@ public class MC1000CasTools {
 			fimDeDados = false;
 			linhaBas = "";
 			linhaBin = null;
-			enderecoDaProximaLinha = 0x03d5; // EndereÁo padr„o do inÌcio do programa BASIC na memÛria.
+			enderecoDaProximaLinha = 0x03d5; // Endere√ßo padr√£o do in√≠cio do programa BASIC na mem√≥ria.
 		}
 
 		@Override
 		public int read() throws IOException {
-			// Enquanto houver bytes no buffer de saÌda, fornece-os.
+			// Enquanto houver bytes no buffer de sa√≠da, fornece-os.
 			if (linhaBin != null && linhaBin.length() != 0) {
 				int c = (int) (linhaBin.charAt(0) & 0xff);
 				linhaBin.deleteCharAt(0);
 				return c;
 			}
-			// Retorna -1 se n„o houver mais dados de entrada.
+			// Retorna -1 se n√£o houver mais dados de entrada.
 			if (fimDeDados) {
 				return -1;
 			}
-			// Procura uma linha de programa BASIC v·lida.
+			// Procura uma linha de programa BASIC v√°lida.
 			int numeroDaLinha;
 			while (true) {
 				// Tenta ler uma linha.
 				if (fimDeDados = ((linhaBas = entrada.readLine()) == null)) {
-					// N„o h· mais linhas:
+					// N√£o h√° mais linhas:
 					// 2 bytes 0 indicam o fim do programa.
 					// O comando SAVE salva um byte extra ao fim.
 					linhaBin.append("\0\0\0");
 					return read();
 				}
 				if (modoVerboso) System.out.printf("Bas2Bin> %s\n", linhaBas);
-				// Checa se a linha consiste de n˙mero de linha (0~65535) + conte˙do.
+				// Checa se a linha consiste de n√∫mero de linha (0~65535) + conte√∫do.
 				Matcher m = pLinhaComNumero.matcher(linhaBas);
 				if (m.find()) {
-					// Extrai o n˙mero da linha.
+					// Extrai o n√∫mero da linha.
 					if (m.group(1).length() > 5 || ((numeroDaLinha = Integer.parseInt(m.group(1))) > 65535)) {
-						// Descarta linha se n˙mero inv·lido.
-						System.err.println("Bas2Bin>! Linha ignorada: N˙mero de linha ausente ou maior que 65535.");
+						// Descarta linha se n√∫mero inv√°lido.
+						System.err.println("Bas2Bin>! Linha ignorada: N√∫mero de linha ausente ou maior que 65535.");
 					} else {
-						// N˙mero v·lido. Converte o conte˙do para mai˙sculas e conclui a busca.
+						// N√∫mero v√°lido. Converte o conte√∫do para mai√∫sculas e conclui a busca.
 						linhaBas = m.group(2).toUpperCase();
 						break;
 					}
@@ -307,21 +307,21 @@ public class MC1000CasTools {
 					System.err.println("Bas2Bin>! Linha ignorada: Numero de linha ausente.");
 				}
 			}
-			// Buffer que conter· a linha tokenizada:
-			// 2 bytes de endereÁo da prÛxima linha
-			// + 2 bytes de n˙mero da linha
-			// + conte˙do da linha
+			// Buffer que conter√° a linha tokenizada:
+			// 2 bytes de endere√ßo da pr√≥xima linha
+			// + 2 bytes de n√∫mero da linha
+			// + conte√∫do da linha
 			// + 1 byte 0 ao fim da linha.
 			linhaBin = new StringBuffer();
 			
-			// EndereÁo da prÛxima linha (a definir mais tarde).
+			// Endere√ßo da pr√≥xima linha (a definir mais tarde).
 			linhaBin.append("\0\0");
 			
-			// N˙mero da linha.
+			// N√∫mero da linha.
 			linhaBin.append((char) ( numeroDaLinha       & 0xff));
 			linhaBin.append((char) ((numeroDaLinha >> 8) & 0xff));
 			
-			// ComeÁa tokenizando o conte˙do da linha.
+			// Come√ßa tokenizando o conte√∫do da linha.
 			estrategia = ESTRATEGIA_TOKEN;
 			
 			while (!linhaBas.isEmpty()) {
@@ -333,7 +333,7 @@ public class MC1000CasTools {
 			// Byte 0 termina a linha.
 			linhaBin.append('\0');
 			
-			// Atualiza o endereÁo da prÛxima linha no inÌcio do buffer de saÌda.
+			// Atualiza o endere√ßo da pr√≥xima linha no in√≠cio do buffer de sa√≠da.
 			enderecoDaProximaLinha = enderecoDaProximaLinha + linhaBin.length();
 			linhaBin.setCharAt(0, (char) ( enderecoDaProximaLinha       & 0xff));
 			linhaBin.setCharAt(1, (char) ((enderecoDaProximaLinha >> 8) & 0xff));
@@ -343,14 +343,14 @@ public class MC1000CasTools {
 
 		private void exec(int estrategiaExec) throws IOException {
 			switch (estrategiaExec) {
-			case ESTRATEGIA_TOKEN: // EstratÈgia padr„o: Descarta espaÁos e tokeniza palavras reservadas.
+			case ESTRATEGIA_TOKEN: // Estrat√©gia padr√£o: Descarta espa√ßos e tokeniza palavras reservadas.
 				switch (caracter) {
 				case ' ':
-					// Descarta espaÁos.
+					// Descarta espa√ßos.
 					break;
 				default:
 					// Verifica se encontrou uma palavra reservada.
-					String linhaBasTmp = String.valueOf(caracter) + linhaBas; // Restaura o caracter extraÌdo da linha.
+					String linhaBasTmp = String.valueOf(caracter) + linhaBas; // Restaura o caracter extra√≠do da linha.
 					String palavraReservada = null;
 					char token = '\0';
 					for (int i = 0; i < palavrasReservadas.length; i++) {
@@ -365,7 +365,7 @@ public class MC1000CasTools {
 						linhaBin.append(token);
 						// Pula as letras da palavra reservada.
 						linhaBas = linhaBas.substring(palavraReservada.length() - 1);
-						// Certas palavras reservadas implicam mudanÁa de estratÈgia.
+						// Certas palavras reservadas implicam mudan√ßa de estrat√©gia.
 						if (palavraReservada.equals("DATA")) {
 							estrategia = ESTRATEGIA_DATA;
 						} else if (palavraReservada.equals("REM") || palavraReservada.equals("SAVE") || palavraReservada.equals("LOAD")) {
@@ -377,31 +377,31 @@ public class MC1000CasTools {
 					}
 				}
 				break;
-			case ESTRATEGIA_DATA: // Trata o inÌcio de uma instruÁ„o DATA: Descarta espaÁos iniciais n„o escapados, se houver.
+			case ESTRATEGIA_DATA: // Trata o in√≠cio de uma instru√ß√£o DATA: Descarta espa√ßos iniciais n√£o escapados, se houver.
 				switch (caracter) {
 				case ' ':
-					// Descarta espaÁos iniciais n„o escapados apÛs a palavra "DATA".
+					// Descarta espa√ßos iniciais n√£o escapados ap√≥s a palavra "DATA".
 					break;
 				default:
-					// EspaÁos escapados ou quaisquer outros caracteres marcam o inÌcio dos dados reais.
+					// Espa√ßos escapados ou quaisquer outros caracteres marcam o in√≠cio dos dados reais.
 					estrategia = ESTRATEGIA_DATA2;
 					exec(ESTRATEGIA_DATA2);
 					break;
 				}
 				break;
-			case ESTRATEGIA_DATA2: // Trata caracteres entre dados em uma instruÁ„o DATA: espaÁos n„o escapados apÛs o primeiro caracter diferente de espaÁo saem n„o escapados.
+			case ESTRATEGIA_DATA2: // Trata caracteres entre dados em uma instru√ß√£o DATA: espa√ßos n√£o escapados ap√≥s o primeiro caracter diferente de espa√ßo saem n√£o escapados.
 				exec(ESTRATEGIA_STRING_OU_CARACTER);
 				switch (caracter) {
 				case ':':
-					// Fim da instruÁ„o DATA.
+					// Fim da instru√ß√£o DATA.
 					estrategia = ESTRATEGIA_TOKEN;
 					break;
 				}
 				break;
-			case ESTRATEGIA_REM: // Trata o inÌcio de uma instruÁ„o REM/SAVE/LOAD: Descarta espaÁos iniciais n„o escapados, se houver. 
+			case ESTRATEGIA_REM: // Trata o in√≠cio de uma instru√ß√£o REM/SAVE/LOAD: Descarta espa√ßos iniciais n√£o escapados, se houver. 
 				switch (caracter) {
 				case ' ':
-					// Descarta espaÁos iniciais n„o escapados apÛs a palavra "REM".
+					// Descarta espa√ßos iniciais n√£o escapados ap√≥s a palavra "REM".
 					break;
 				default:
 					estrategia = ESTRATEGIA_CARACTER;
@@ -409,18 +409,18 @@ public class MC1000CasTools {
 					break;
 				}
 				break;
-			case ESTRATEGIA_STRING_OU_CARACTER: // Identifica inÌcio de string.
+			case ESTRATEGIA_STRING_OU_CARACTER: // Identifica in√≠cio de string.
 				exec(ESTRATEGIA_CARACTER);
 				switch (caracter) {
 				case '"':
 					// Inicio de string.
-					// Salva estratÈgia atual para voltar ao final da string.
+					// Salva estrat√©gia atual para voltar ao final da string.
 					estrategiaAntesDeSTRING = estrategia;
 					estrategia = ESTRATEGIA_STRING;
 					break;
 				}
 				break;
-			case ESTRATEGIA_STRING: // Trata o corpo de uma string atÈ encontrar aspas.
+			case ESTRATEGIA_STRING: // Trata o corpo de uma string at√© encontrar aspas.
 				exec(ESTRATEGIA_CARACTER);
 				switch (caracter) {
 				case '"':
@@ -432,7 +432,7 @@ public class MC1000CasTools {
 			case ESTRATEGIA_CARACTER: // Trata caracteres.
 				switch (caracter) {
 				case '~':
-					// NotaÁ„o hexadecimal ~XX.
+					// Nota√ß√£o hexadecimal ~XX.
 					if (linhaBas.matches("^[0-9A-Fa-f]{2}")) {
 						linhaBin.append(Integer.parseInt(linhaBas.substring(0, 2), 16));
 						linhaBas = linhaBas.substring(2);
@@ -441,7 +441,7 @@ public class MC1000CasTools {
 					}
 					break;
 				case '`':
-					// NotaÁ„o de caracter inverso: `X.
+					// Nota√ß√£o de caracter inverso: `X.
 					if (linhaBas.length() >= 1) {
 						linhaBin.append((char) (linhaBas.charAt(0) ^ 0x80));
 						linhaBas = linhaBas.substring(1);
@@ -457,7 +457,7 @@ public class MC1000CasTools {
 		}
 	}
 	
-	// CONVERS√O BIN¡RIO --> CASSETE.
+	// CONVERS√ÉO BIN√ÅRIO --> CASSETE.
 	
 	private static class Bin2Cas extends InputStream {
 		private InputStream entrada;
@@ -483,7 +483,7 @@ public class MC1000CasTools {
 				
 				// Ajusta nome de arquivo em cassete.
 				if (eProgramaBASIC) {
-					// Se o arquivo È um programa em BASIC, limita nome de arquivo em cassete a 5 caracteres, preenchidos com espaÁos.
+					// Se o arquivo √© um programa em BASIC, limita nome de arquivo em cassete a 5 caracteres, preenchidos com espa√ßos.
 					nomeDeArquivoEmCassete = (nomeDeArquivoEmCassete.toUpperCase() + "     ").substring(0, 5);
 				}
 				if (nomeDeArquivoEmCassete.length() < 14) {
@@ -494,12 +494,12 @@ public class MC1000CasTools {
 					nomeDeArquivoEmCassete = nomeDeArquivoEmCassete.substring(0, 14);
 				}
 				
-				// Compıe cabeÁalho:
+				// Comp√µe cabe√ßalho:
 				// 1. Nome de arquivo em cassete:
 				cabecalho.append(nomeDeArquivoEmCassete);
-				// 2. EndereÁo inicial do bloco de dados (0x0000):
+				// 2. Endere√ßo inicial do bloco de dados (0x0000):
 				cabecalho.append("\0\0");
-				// 3. EndereÁo final do bloco de dados (= tamanho do bloco):
+				// 3. Endere√ßo final do bloco de dados (= tamanho do bloco):
 				cabecalho.append((char) ( dados.length()       & 0xff)); // LSB.
 				cabecalho.append((char) ((dados.length() >> 8) & 0xff)); // MSB.
 				
@@ -517,7 +517,7 @@ public class MC1000CasTools {
 		}
 	}
 	
-	// CONVERS√O CASSETE --> WAV.
+	// CONVERS√ÉO CASSETE --> WAV.
 	
 	private static class Cas2Wav extends InputStream {
 		private InputStream entrada;
@@ -535,11 +535,11 @@ public class MC1000CasTools {
 				listaDeAmostras = new ArrayList<Byte>();
 				
 				// Gera sinal piloto:
-				// 4096 perÌodos curtos.
+				// 4096 per√≠odos curtos.
 				for (int i = 0; i < 4096; i++) {
 					periodoCurto();
 				}
-				// 256 perÌodos longos.
+				// 256 per√≠odos longos.
 				for (int i = 0; i < 256; i++) {
 					periodoLongo();
 				}
@@ -603,7 +603,7 @@ public class MC1000CasTools {
 		}
 		
 		private void gravaByte(int _byte) {
-			// Marca de inÌcio de byte.
+			// Marca de in√≠cio de byte.
 			periodoCurto();
 			// Os oito bits do byte, do menos para o mais significativo.
 			boolean par = true;
@@ -654,7 +654,7 @@ public class MC1000CasTools {
 		}
 	}
 
-	// CONVERS√O WAV --> CASSETE.
+	// CONVERS√ÉO WAV --> CASSETE.
 	
 	private static class Wav2Cas extends InputStream {
 		private InputStream entrada;
@@ -672,7 +672,7 @@ public class MC1000CasTools {
 		@Override
 		public int read() throws IOException {
 			if (amostras == null) {
-				// CÛdigo adaptado de
+				// C√≥digo adaptado de
 				// http://stackoverflow.com/questions/938304/how-to-get-audio-data-from-a-mp3
 				
 				AudioInputStream fluxoDeEntrada = null;
@@ -690,7 +690,7 @@ public class MC1000CasTools {
 	
 				if ((formatoBase.getEncoding() == AudioFormat.Encoding.PCM_SIGNED)
 						|| (formatoBase.getEncoding() == AudioFormat.Encoding.PCM_UNSIGNED)) {
-					// J· È PCM, n„o converter.
+					// J√° √© PCM, n√£o converter.
 					fluxoDeEntradaDecodificado = fluxoDeEntrada;
 					formatoDecodificado = formatoBase;
 				} else {
@@ -734,22 +734,22 @@ public class MC1000CasTools {
 					}
 					
 					amostras[indiceAmostras++] = amostra;
-					// Identifica os valores mÌnimo e m·ximo para normalizar posteriormente.
+					// Identifica os valores m√≠nimo e m√°ximo para normalizar posteriormente.
 					if (amostra > amostraMax) amostraMax = amostra;
 					if (amostra < amostraMin) amostraMin = amostra;
 				}
 				
 				if (modoVerboso) {
-					System.out.println("Wav2Cas> An·lise concluÌda.");
+					System.out.println("Wav2Cas> An√°lise conclu√≠da.");
 					System.out.printf("Wav2Cas> Quantidade de frames: %d.\n", fluxoDeEntradaDecodificado.getFrameLength());
 					System.out.printf("Wav2Cas> Amostras obtidas: %d.\n", indiceAmostras);
-					System.out.printf("Wav2Cas> MÌnimo: %d.\n", amostraMin);
-					System.out.printf("Wav2Cas> M·ximo: %d.\n", amostraMax);
+					System.out.printf("Wav2Cas> M√≠nimo: %d.\n", amostraMin);
+					System.out.printf("Wav2Cas> M√°ximo: %d.\n", amostraMax);
 				}
 				
 				if (indiceAmostras == 0) return -1;
 				
-				fatorDeAmplitudeDasAmostras = 255 / (amostraMax - amostraMin); // Para adiantar c·lculo de normalizaÁ„o.
+				fatorDeAmplitudeDasAmostras = 255 / (amostraMax - amostraMin); // Para adiantar c√°lculo de normaliza√ß√£o.
 				
 				duracaoDaAmostra = 1 / formatoDecodificado.getFrameRate();
 				
@@ -800,7 +800,7 @@ public class MC1000CasTools {
 		static final int PULSO_LONGO_BIT_0 = 0; // = Bit 0.
 		static final int PULSO_LONGO_DEMAIS = -1;
 		
-		// Aqui o termo "pulso" refere-se a uma sequÍncia de amostras altas.
+		// Aqui o termo "pulso" refere-se a uma sequ√™ncia de amostras altas.
 		private double duracaoDoPulso;
 		// No MC-1000, um pulso curto representa o bit 1, um pulso longo
 		// representa o bit 0.
@@ -809,7 +809,7 @@ public class MC1000CasTools {
 		static final double duracaoDoPulsoCurto = 16.0d / 44100;
 		// Um pulso longo dura o dobro do tempo.
 		// Limites das faixas usadas para reconhecer pulsos curtos,
-		// pulsos longos, e ruÌdo (pulsos curtos demais ou longos demais).
+		// pulsos longos, e ru√≠do (pulsos curtos demais ou longos demais).
 		static final double duracaoMinDoPulsoCurto = duracaoDoPulsoCurto * Math.pow(2, -1.0);
 		static final double duracaoMaxDoPulsoCurto = duracaoDoPulsoCurto * Math.pow(2, +0.5);
 		static final double duracaoMaxDoPulsoLongo = duracaoDoPulsoCurto * Math.pow(2, +2.0);
@@ -917,9 +917,9 @@ public class MC1000CasTools {
 				break;
 			case LENDO_INICIO_DO_BYTE:
 				if (valorDoPulso == PULSO_CURTO_DEMAIS) {
-					System.err.println("Wav2Cas>! Pulso de inÌcio de byte curto demais!");
+					System.err.println("Wav2Cas>! Pulso de in√≠cio de byte curto demais!");
 				} else if (valorDoPulso == PULSO_LONGO_BIT_0 || valorDoPulso == PULSO_LONGO_DEMAIS) {
-					System.err.println("Wav2Cas>! Pulso de inÌcio de byte longo demais!"); 
+					System.err.println("Wav2Cas>! Pulso de in√≠cio de byte longo demais!"); 
 				}
 				iniciaByte();
 				break;
@@ -1048,7 +1048,7 @@ public class MC1000CasTools {
 					enderecoDeInicio = _byte; // LSB.
 				} else /* if (contadorDeBytes == 2) */ {
 					enderecoDeInicio |= (_byte << 8); // MSB.
-					if (modoVerboso) System.out.printf("Wav2Cas> EndereÁo de inÌcio: 0x%s = %d.\n", Integer.toHexString(enderecoDeInicio), enderecoDeInicio);
+					if (modoVerboso) System.out.printf("Wav2Cas> Endere√ßo de in√≠cio: 0x%s = %d.\n", Integer.toHexString(enderecoDeInicio), enderecoDeInicio);
 					estado2 = LENDO_ENDERECO_DE_FIM;
 					contadorDeBytes = 0;
 				}
@@ -1058,7 +1058,7 @@ public class MC1000CasTools {
 					enderecoDeFim = _byte; // LSB.
 				} else /* if (contadorDeBytes == 2) */ {
 					enderecoDeFim |= (_byte << 8);
-					if (modoVerboso) System.out.printf("Wav2Cas> EndereÁo de fim: 0x%s = %d.\n", Integer.toHexString(enderecoDeFim), enderecoDeFim);
+					if (modoVerboso) System.out.printf("Wav2Cas> Endere√ßo de fim: 0x%s = %d.\n", Integer.toHexString(enderecoDeFim), enderecoDeFim);
 					tamanhoDoBlocoDeDados = enderecoDeFim - enderecoDeInicio + 1;
 					// blocoDeDados = new byte[tamanhoDoBlocoDeDados];
 					estado2 = LENDO_BLOCO_DE_DADOS;
@@ -1082,7 +1082,7 @@ public class MC1000CasTools {
 		}
 	}
 
-	// CONVERS√O CASSETE --> BIN¡RIO.
+	// CONVERS√ÉO CASSETE --> BIN√ÅRIO.
 	
 	private static class Cas2Bin extends InputStream {
 		private InputStream entrada;
@@ -1121,7 +1121,7 @@ public class MC1000CasTools {
 						enderecoDeInicio = _byte; // LSB.
 					} else /* if (contadorDeBytes == 2) */ {
 						enderecoDeInicio |= (_byte << 8); // MSB.
-						if (modoVerboso) System.out.printf("Cas2Bin> EndereÁo de inÌcio: 0x%s = %d.\n", Integer.toHexString(enderecoDeInicio), enderecoDeInicio);
+						if (modoVerboso) System.out.printf("Cas2Bin> Endere√ßo de in√≠cio: 0x%s = %d.\n", Integer.toHexString(enderecoDeInicio), enderecoDeInicio);
 						estado = LENDO_ENDERECO_DE_FIM;
 						contadorDeBytes = 0;
 					}
@@ -1131,7 +1131,7 @@ public class MC1000CasTools {
 						enderecoDeFim = _byte; // LSB.
 					} else /* if (contadorDeBytes == 2) */ {
 						enderecoDeFim |= (_byte << 8);
-						if (modoVerboso) System.out.printf("Cas2Bin> EndereÁo de fim: 0x%s = %d.\n", Integer.toHexString(enderecoDeFim), enderecoDeFim);
+						if (modoVerboso) System.out.printf("Cas2Bin> Endere√ßo de fim: 0x%s = %d.\n", Integer.toHexString(enderecoDeFim), enderecoDeFim);
 						estado = LENDO_BLOCO_DE_DADOS;
 						contadorDeBytes = 0;
 					}
@@ -1142,7 +1142,7 @@ public class MC1000CasTools {
 		}
 	}
 
-	// CONVERS√O BIN¡RIO --> BASIC.
+	// CONVERS√ÉO BIN√ÅRIO --> BASIC.
 	
 	private static class Bin2Bas extends InputStream {
 		private InputStream entrada;
@@ -1167,17 +1167,17 @@ public class MC1000CasTools {
 
 		@Override
 		public int read() throws IOException {
-			// Enquanto houver bytes no buffer de saÌda, fornece-os.
+			// Enquanto houver bytes no buffer de sa√≠da, fornece-os.
 			if (linhaBas != null && linhaBas.length() != 0) {
 				int c = (int) (linhaBas.charAt(0) & 0xff);
 				linhaBas.deleteCharAt(0);
 				return c;
 			}
-			// Retorna -1 se n„o houver mais dados de entrada.
+			// Retorna -1 se n√£o houver mais dados de entrada.
 			if (fimDeDados) {
 				return -1;
 			}
-			// Procura uma linha de programa BASIC v·lida.
+			// Procura uma linha de programa BASIC v√°lida.
 			linhaBas = new StringBuffer();
 			int _byte;
 			int enderecoDaProximaLinha;
@@ -1228,12 +1228,12 @@ public class MC1000CasTools {
 		
 		private void exec(int estrategiaExec) throws IOException {
 			switch (estrategiaExec) {
-			case ESTRATEGIA_TOKEN: // EstratÈgia padr„o.
+			case ESTRATEGIA_TOKEN: // Estrat√©gia padr√£o.
 				if ((caracter & 0x80) != 0 && (caracter & 0x7f) < palavrasReservadas.length) {
-					// Se encontrou token, exibe palavra reservada correspondente com espaÁos antes e depois.
+					// Se encontrou token, exibe palavra reservada correspondente com espa√ßos antes e depois.
 					String palavraReservada = palavrasReservadas[caracter & 0x7f];
 					linhaBas.append(' ').append(palavraReservada).append(' ');
-					// Certas palavras reservadas implicam mudanÁa de estratÈgia.
+					// Certas palavras reservadas implicam mudan√ßa de estrat√©gia.
 					if (palavraReservada.equals("DATA")) {
 						estrategia = ESTRATEGIA_DATA;
 					} else if (palavraReservada.equals("REM") || palavraReservada.equals("SAVE") || palavraReservada.equals("LOAD")) {
@@ -1242,7 +1242,7 @@ public class MC1000CasTools {
 				} else {
 					switch (caracter) {
 					case ' ':
-						// EspaÁo: Introduz notaÁ„o hexadecimal para que n„o sejam perdidos no Bas2Bin.
+						// Espa√ßo: Introduz nota√ß√£o hexadecimal para que n√£o sejam perdidos no Bas2Bin.
 						linhaBas.append("~20");
 						break;
 					default:
@@ -1251,10 +1251,10 @@ public class MC1000CasTools {
 					}
 				}
 				break;
-			case ESTRATEGIA_DATA: // Trata inÌcio de instruÁ„o DATA: espaÁos iniciais.
+			case ESTRATEGIA_DATA: // Trata in√≠cio de instru√ß√£o DATA: espa√ßos iniciais.
 				switch (caracter) {
 				case ' ':
-					// EspaÁo: Exibe notaÁ„o decimal para marcar inÌcio dos dados reais.
+					// Espa√ßo: Exibe nota√ß√£o decimal para marcar in√≠cio dos dados reais.
 					linhaBas.append("~20");
 					estrategia = ESTRATEGIA_DATA2;
 					break;
@@ -1264,24 +1264,24 @@ public class MC1000CasTools {
 					break;
 				}
 				break;
-			case ESTRATEGIA_DATA2: // Trata dado em instruÁ„o DATA.
+			case ESTRATEGIA_DATA2: // Trata dado em instru√ß√£o DATA.
 				exec(ESTRATEGIA_STRING_OU_CARACTER);
 				switch (caracter) {
 				case ':':
-					// Fim de instruÁ„o DATA.
+					// Fim de instru√ß√£o DATA.
 					estrategia = ESTRATEGIA_TOKEN;
 					break;
 				}
 				break;
-			case ESTRATEGIA_REM: // Trata inÌcio de instruÁ„o REM/SAVE/LOAD: espaÁos iniciais.
+			case ESTRATEGIA_REM: // Trata in√≠cio de instru√ß√£o REM/SAVE/LOAD: espa√ßos iniciais.
 				switch(caracter) {
 				case ' ':
-					// EspaÁo: Exibe notaÁ„o decimal para marcar inÌcio dos dados reais.
+					// Espa√ßo: Exibe nota√ß√£o decimal para marcar in√≠cio dos dados reais.
 					linhaBas.append("~20");
-					estrategia = ESTRATEGIA_CARACTER; // Sai o resto da linha. EspaÁos apÛs qualquer primeiro caracter saem n„o escapados.
+					estrategia = ESTRATEGIA_CARACTER; // Sai o resto da linha. Espa√ßos ap√≥s qualquer primeiro caracter saem n√£o escapados.
 					break;
 				default:
-					estrategia = ESTRATEGIA_CARACTER; // Sai o resto da linha. EspaÁos apÛs qualquer primeiro caracter saem n„o escapados.
+					estrategia = ESTRATEGIA_CARACTER; // Sai o resto da linha. Espa√ßos ap√≥s qualquer primeiro caracter saem n√£o escapados.
 					exec(ESTRATEGIA_CARACTER);
 					break;
 				}
@@ -1290,14 +1290,14 @@ public class MC1000CasTools {
 				exec(ESTRATEGIA_CARACTER);
 				switch (caracter) {
 				case '"':
-					// InÌcio de string.
-					// Salva estratÈgia atual para voltar ao final da string.
+					// In√≠cio de string.
+					// Salva estrat√©gia atual para voltar ao final da string.
 					estrategiaAntesDeSTRING = estrategia;
 					estrategia = ESTRATEGIA_STRING;
 					break;
 				}
 				break;
-			case ESTRATEGIA_STRING: // Trata o corpo de uma string atÈ encontrar aspas.
+			case ESTRATEGIA_STRING: // Trata o corpo de uma string at√© encontrar aspas.
 				exec(ESTRATEGIA_CARACTER);
 				switch (caracter) {
 				case '"':
@@ -1316,7 +1316,7 @@ public class MC1000CasTools {
 					linhaBas.append('`').append((char) (caracter ^ 0x80));
 				} else {
 					// Outros caracteres.
-					// Listar como til + cÛdigo hexadecimal.
+					// Listar como til + c√≥digo hexadecimal.
 					linhaBas.append('~');
 					if (caracter < 0x10) linhaBas.append('0');
 					linhaBas.append(Integer.toHexString(caracter).toUpperCase());
